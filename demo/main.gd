@@ -17,9 +17,9 @@ var colors = [
 ]
 	
 func _process(delta):
-	if socket != null and socket.get_available_packet_count() > 0:
+	if socket != null and socket.is_packet_available():
 		var max_iteration = 30
-		while socket.get_available_packet_count() > 0 and max_iteration > 0:
+		while socket.is_packet_available() and max_iteration > 0:
 			max_iteration -= 1
 			var packet : PackedByteArray = socket.get_packet()
 			var type = packet.decode_u8(0)
@@ -29,12 +29,14 @@ func _process(delta):
 				var isreadonly = packet.decode_u8(6) == 0
 			elif type == TelemetryProtocol.REALTIME_CAR_UPDATE:
 				var car_index = packet.decode_u16(1)
-				var car_wordx = packet.decode_float(7)
-				var car_wordy = packet.decode_float(11)
+				var car_wordx = packet.decode_float(11)
+				var car_wordy = packet.decode_float(15)
 				var car_yaw = packet.decode_float(15)
 				var car_location = packet.decode_u8(19)
 				var spline_position = wrap(packet.decode_float(28) + 0.9476752720853 , 0.0, 1.0)
 				
+				print(packet)
+				print("-")
 				cars[car_index] = {
 					"index": car_index,
 					"wordx": car_wordx,
@@ -51,13 +53,6 @@ func _on_connect_button_pressed():
 	var ip = $Control/MarginContainer/VBoxContainer/GridContainer/TextEditIP.text
 	var port = int($Control/MarginContainer/VBoxContainer/GridContainer/TextEditPort.text)
 	
-	socket = PacketPeerUDP.new()
-	socket.connect_to_host(ip, port)
-	
-	var display_name = "Godot"
-	var connection_password = "asd"
-	var command_password = ""
-	var update_interval = 40
-	var tp = TelemetryProtocol.new()
-	var packet = tp.build_request_connection(display_name, connection_password, update_interval, command_password)
-	socket.put_packet(packet)
+	socket = AccBroadcast.new()
+	socket.connect(ip, port)
+	socket.request_connect("Godot", "asd", 40, "")

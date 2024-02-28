@@ -6,6 +6,8 @@ func _draw():
 	var path2d = $"../TrackPath2D"
 	var total_length = path2d.curve.get_baked_length()
 	var cars = $"..".cars
+	var offset = Vector2(300, 300)
+	var scale = Vector2(100, 500)
 	
 	for c in cars.values():
 		var p1 = path2d.curve.sample_baked( total_length * c.spline, true)
