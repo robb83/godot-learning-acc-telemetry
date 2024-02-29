@@ -31,8 +31,7 @@ class AccBroadcast : public RefCounted {
 protected:
 	static void _bind_methods();
 	Ref<PacketPeerUDP> socket;
-	int connectionID;
-
+	
 public:
 	AccBroadcast();
 	~AccBroadcast();
@@ -40,8 +39,8 @@ public:
 	void connect(String ip, int port);
 	void request_connect(String display_name, String connection_password, int update_interval, String command_password);
 	void request_disconnect();
-	void request_entry_list();
-	void request_track_data();
+	void request_entry_list(int connectionId);
+	void request_track_data(int connectionId);
 	bool is_packet_available();
 	PackedByteArray get_packet();
 };

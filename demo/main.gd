@@ -3,6 +3,8 @@ extends Node2D
 var socket = null
 var connectionID = -1
 var cars = {}
+var track_id = 0
+var track_name = ""
 
 # https://stackoverflow.com/questions/1168260/algorithm-for-generating-unique-colors
 var colors = [
@@ -27,16 +29,20 @@ func _process(delta):
 				connectionID = packet.decode_s32(1)
 				var success = packet.decode_u8(5) > 0
 				var isreadonly = packet.decode_u8(6) == 0
+				socket.request_track_data(connectionID)
+			elif type == TelemetryProtocol.TRACK_DATA:
+				var cid = packet.decode_s32(1) # connectionId
+				var track_name_length = packet.decode_u16(5)
+				track_name = packet.slice(7, 7 + track_name_length).get_string_from_utf8()
+				track_id = packet.decode_u32(7 + track_name_length)
 			elif type == TelemetryProtocol.REALTIME_CAR_UPDATE:
 				var car_index = packet.decode_u16(1)
 				var car_wordx = packet.decode_float(11)
 				var car_wordy = packet.decode_float(15)
 				var car_yaw = packet.decode_float(15)
 				var car_location = packet.decode_u8(19)
-				var spline_position = wrap(packet.decode_float(28) + 0.9476752720853 , 0.0, 1.0)
+				var spline_position = wrap(packet.decode_float(28) , 0.0, 1.0)
 				
-				print(packet)
-				print("-")
 				cars[car_index] = {
 					"index": car_index,
 					"wordx": car_wordx,

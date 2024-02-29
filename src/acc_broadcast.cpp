@@ -9,8 +9,8 @@ void AccBroadcast::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("connect", "ip", "port"), &AccBroadcast::connect);
 	ClassDB::bind_method(D_METHOD("request_connect", "display_name", "connection_password", "update_interval", "command_password"), &AccBroadcast::request_connect);
 	ClassDB::bind_method(D_METHOD("request_disconnect"), &AccBroadcast::request_disconnect);
-	ClassDB::bind_method(D_METHOD("request_entry_list"), &AccBroadcast::request_entry_list);
-	ClassDB::bind_method(D_METHOD("request_track_data"), &AccBroadcast::request_track_data);
+	ClassDB::bind_method(D_METHOD("request_entry_list", "connectionId"), &AccBroadcast::request_entry_list);
+	ClassDB::bind_method(D_METHOD("request_track_data", "connectionId"), &AccBroadcast::request_track_data);
 	ClassDB::bind_method(D_METHOD("get_packet"), &AccBroadcast::get_packet);
 	ClassDB::bind_method(D_METHOD("is_packet_available"), &AccBroadcast::is_packet_available);
 }
@@ -86,20 +86,20 @@ void AccBroadcast::request_disconnect()
 	socket->put_packet(buffer);
 }
 
-void AccBroadcast::request_track_data() 
+void AccBroadcast::request_track_data(int connectionId) 
 {
 	PackedByteArray buffer;
 	buffer.resize(5);
 	buffer.encode_u8(0, AccBroadcastCommands::REQUEST_TRACK_DATA);
-	buffer.encode_s32(1, connectionID);
+	buffer.encode_s32(1, connectionId);
 	socket->put_packet(buffer);
 }
 
-void AccBroadcast::request_entry_list() 
+void AccBroadcast::request_entry_list(int connectionId) 
 {
 	PackedByteArray buffer;
 	buffer.resize(5);
 	buffer.encode_u8(0, AccBroadcastCommands::REQUEST_ENTRY_LIST);
-	buffer.encode_s32(1, connectionID);
+	buffer.encode_s32(1, connectionId);
 	socket->put_packet(buffer);
 }

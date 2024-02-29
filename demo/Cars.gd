@@ -9,6 +9,9 @@ func _draw():
 	var offset = Vector2(300, 300)
 	var scale = Vector2(100, 500)
 	
+	if total_length == 0 or path2d.curve.point_count == 0:
+		return
+		
 	for c in cars.values():
 		var p1 = path2d.curve.sample_baked( total_length * c.spline, true)
 		draw_arc(p1, 12, 0, 360, 20, Color.BLACK, 4, true)

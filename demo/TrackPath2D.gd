@@ -1,26 +1,61 @@
 extends Path2D
 
-# https://en.wikipedia.org/wiki/Monza_Circuit
-var data = [ 938.9318,695.5661,818.9047,699.0285,699.4686,699.9549,580.1707,701.5122,555.5065,701.8371,580.6543,667.4451,554.172,678.0298,517.7491,692.5876,482.6225,705.2775,443.0999,705.5752,406.0162,705.8545,353.4656,706.3342,329.2413,698.2984,302.9894,689.59,276.0337,669.1136,266.1772,661.083,248.2202,646.4526,230.9032,623.9797,218.0797,592.9032,203.2689,557.0108,191.2813,497.4951,182.4883,444.7374,177.7131,416.0859,165.0388,347.964,161.759,322.1973,158.7242,298.3555,138.2939,313.2757,132.3098,296.7236,107.4262,227.8959,75.522,175.4942,73.14,166.0613,60.9851,141.1311,57.6146,125.1374,62.1786,107.4518,64.6936,97.706,83.3628,81.5782,93.9891,79.5372,142.2739,70.2627,185.7167,60.7707,235.5869,52.6465,242.7797,51.4747,251.0889,59.4637,255.1691,64.7926,279.5654,96.6551,347.2009,200.8702,387.5012,246.3044,427.2395,291.1051,469.541,325.798,518.8643,371.3733,566.5832,415.4661,616.7427,462.699,664.2416,503.7677,676.6804,514.5227,698.6259,500.5728,721.4935,502.3912,726.6616,502.8021,742.7822,507.1234,752.8959,516.224,757.9528,520.7743,763.5934,529.0019,772.0706,532.0876,780.5478,535.1733,807.8309,535.944,811.5489,535.9217,991.6664,534.8439,1154.4458,534.9733,1335.0642,536.169,1371.7363,536.1038,1388.0651,553.0847,1390.1537,586.3051,1389.8654,598.2745,1388.6382,611.4526,1379.025,624.0569,1366.2722,640.7775,1344.3637,658.7771,1325.484,666.6876,1291.1588,681.0697,1256.0205,682.0788,1220.9746,686.1209,1130.6635,696.5369,1031.5734,692.8937,938.9318,695.5661 ]
+var current_track = ""
+var track_mapping = {
+	"Brands Hatch Circuit": "brands_hatch",
+	"Hungaroring": "hungaroring",
+	"Misano World Circuit": "misano",
+	"Monza Circuit": "monza",
+	"Circuit Paul Ricard": "paul_ricard",
+	"Silverstone": "silverstone",
+	"Circuit de Spa-Francorchamps": "spa",
+	"Circuit Zolder": "zolder",
+}
 
-# generate Curve2d points
-func _ready():
-	var cursor = 0
-	var current = Vector2(data[cursor + 0], data[cursor + 1])
+func load_track_data(track_name):
+	var parser = XMLParser.new()
+	var error = parser.open("res://tracks/track_" + track_name + ".svg")
+	if error == OK:
+		while parser.read() != ERR_FILE_EOF:
+			if parser.get_node_type() == XMLParser.NODE_ELEMENT and "path" == parser.get_node_name() and parser.get_named_attribute_value("id") == "track":
+				return parser.get_named_attribute_value("d")
+	return ""
 
-	cursor = 2
-	while cursor < len(data):
-		var rcp1 = Vector2(data[cursor + 0], data[cursor + 1]) - current
-		var rend = Vector2(data[cursor + 4], data[cursor + 5])
-		var rcp2 = Vector2(data[cursor + 2], data[cursor + 3]) - rend
+func _process(delta):
+	if current_track != $"..".track_name:
+		current_track = $"..".track_name
+		print(current_track)
+		var filename = current_track
+		if track_mapping.has(filename):
+			filename = track_mapping[filename]
 		
-		self.curve.add_point(current, rcp1)
-		self.curve.add_point(rend, rcp2)
+		var data = load_track_data(filename)
+		var words = data.split(' ')
 		
-		current = rend
-		cursor += 6
-
-func _draw():	
+		self.curve.clear_points()
+		
+		var current = Vector2()
+		var cursor = 0
+		while cursor < len(words):
+			if words[cursor] == "M":
+				current = Vector2(float(words[cursor + 1]), float(words[cursor + 2]))
+				cursor += 2
+			elif words[cursor] == "H":
+				current = Vector2(float(words[cursor + 1]), current.y)
+				cursor += 1
+			elif words[cursor] == "V":
+				current = Vector2(current.x, float(words[cursor + 1]))
+				cursor += 1
+			elif words[cursor] == "L":
+				current = Vector2(float(words[cursor + 1]), float(words[cursor + 2]))
+				cursor += 2
+			else:
+				break
+			self.curve.add_point(current)
+			cursor += 1
+		queue_redraw()
+	
+func _draw():
 	var points = self.curve.get_baked_points()
 	var cursor = 0
 	while cursor < len(points) - 1:

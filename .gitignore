@@ -3,3 +3,5 @@
 *.exp
 *.lib
 *.dblite
+*.obj
+*.obj
