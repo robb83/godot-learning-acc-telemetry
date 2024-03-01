@@ -2,10 +2,12 @@ extends Path2D
 
 var current_track = ""
 var track_mapping = {
+	"Circuit de Barcelona-Catalunya": "barcelona",
 	"Brands Hatch Circuit": "brands_hatch",
 	"Hungaroring": "hungaroring",
 	"Misano World Circuit": "misano",
 	"Monza Circuit": "monza",
+	"Nürburgring GmbH": "nurburgring",
 	"Circuit Paul Ricard": "paul_ricard",
 	"Silverstone": "silverstone",
 	"Circuit de Spa-Francorchamps": "spa",

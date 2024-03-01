@@ -1,10 +1,19 @@
 extends Node2D
 
 var socket = null
+var telemetry = null
 var connectionID = -1
 var cars = {}
 var track_id = 0
 var track_name = ""
+var gears = ["R", "N", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
+@onready var label_speed = $Control/MarginContainer2/VBoxContainer/LabelSpeed
+@onready var label_gear = $Control/MarginContainer2/VBoxContainer/LabelGear
+@onready var label_fuel = $Control/MarginContainer2/VBoxContainer/LabelFuel
+@onready var progress_throttle = $Control/MarginContainer2/VBoxContainer/ProgressBarThrottle
+@onready var progress_break = $Control/MarginContainer2/VBoxContainer/ProgressBarBreak
+@onready var progress_clutch = $Control/MarginContainer2/VBoxContainer/ProgressBarClutch
 
 # https://stackoverflow.com/questions/1168260/algorithm-for-generating-unique-colors
 var colors = [
@@ -25,17 +34,17 @@ func _process(delta):
 			max_iteration -= 1
 			var packet : PackedByteArray = socket.get_packet()
 			var type = packet.decode_u8(0)
-			if type == TelemetryProtocol.REGISTRATION_RESULT:
+			if type == AccBroadcast.REGISTRATION_RESULT:
 				connectionID = packet.decode_s32(1)
 				var success = packet.decode_u8(5) > 0
 				var isreadonly = packet.decode_u8(6) == 0
 				socket.request_track_data(connectionID)
-			elif type == TelemetryProtocol.TRACK_DATA:
+			elif type == AccBroadcast.TRACK_DATA:
 				var cid = packet.decode_s32(1) # connectionId
 				var track_name_length = packet.decode_u16(5)
 				track_name = packet.slice(7, 7 + track_name_length).get_string_from_utf8()
 				track_id = packet.decode_u32(7 + track_name_length)
-			elif type == TelemetryProtocol.REALTIME_CAR_UPDATE:
+			elif type == AccBroadcast.REALTIME_CAR_UPDATE:
 				var car_index = packet.decode_u16(1)
 				var car_wordx = packet.decode_float(11)
 				var car_wordy = packet.decode_float(15)
@@ -53,6 +62,14 @@ func _process(delta):
 					"color": colors[wrap(car_index, 0, len(colors) - 1)],
 				}
 				$Cars.queue_redraw()
+		if telemetry:
+			var data = telemetry.poll_physics()
+			label_speed.text = "%3.2f km/h" % data.speedKmh
+			label_gear.text = gears[data.gear]
+			label_fuel.text = "%3.3f kg" % data.fuel
+			progress_break.value = data.brake
+			progress_throttle.value = data.gas
+			progress_clutch.value = data.clutch
 
 func _on_connect_button_pressed():
 	
@@ -62,3 +79,6 @@ func _on_connect_button_pressed():
 	socket = AccBroadcast.new()
 	socket.connect(ip, port)
 	socket.request_connect("Godot", "asd", 40, "")
+	
+	telemetry = AccTelemetry.new()
+	telemetry.connect()
