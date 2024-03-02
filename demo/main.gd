@@ -39,6 +39,9 @@ func _process(delta):
 				var success = packet.decode_u8(5) > 0
 				var isreadonly = packet.decode_u8(6) == 0
 				socket.request_track_data(connectionID)
+				if telemetry:
+					print(telemetry.poll_static())
+					print(telemetry.poll_graphics())
 			elif type == AccBroadcast.TRACK_DATA:
 				var cid = packet.decode_s32(1) # connectionId
 				var track_name_length = packet.decode_u16(5)
@@ -80,5 +83,6 @@ func _on_connect_button_pressed():
 	socket.connect(ip, port)
 	socket.request_connect("Godot", "asd", 40, "")
 	
-	telemetry = AccTelemetry.new()
-	telemetry.connect()
+	if telemetry == null:
+		telemetry = AccTelemetry.new()
+		telemetry.connect()

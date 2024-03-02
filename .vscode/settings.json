@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "set": "cpp",
+        "algorithm": "cpp",
+        "limits": "cpp",
+        "xlocale": "cpp"
+    }
+}

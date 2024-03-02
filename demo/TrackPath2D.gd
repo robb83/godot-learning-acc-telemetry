@@ -1,6 +1,10 @@
-extends Path2D
+extends Node2D
 
-var current_track = ""
+@onready var root = $"../.."
+
+var track_curve = Curve2D.new()
+var track_transform = Transform2D()
+var track_name = ""
 var track_mapping = {
 	"Circuit de Barcelona-Catalunya": "barcelona",
 	"Brands Hatch Circuit": "brands_hatch",
@@ -11,33 +15,29 @@ var track_mapping = {
 	"Circuit Paul Ricard": "paul_ricard",
 	"Silverstone": "silverstone",
 	"Circuit de Spa-Francorchamps": "spa",
+	"Circuit Zandvoort": "zandvoort",
 	"Circuit Zolder": "zolder",
 }
 
-func load_track_data(track_name):
+func load_track_data(tn):
 	var parser = XMLParser.new()
-	var error = parser.open("res://tracks/track_" + track_name + ".svg")
+	var error = parser.open("res://tracks/track_" + tn + ".svg")
 	if error == OK:
 		while parser.read() != ERR_FILE_EOF:
 			if parser.get_node_type() == XMLParser.NODE_ELEMENT and "path" == parser.get_node_name() and parser.get_named_attribute_value("id") == "track":
 				return parser.get_named_attribute_value("d")
 	return ""
 
-func _process(delta):
-	if current_track != $"..".track_name:
-		current_track = $"..".track_name
-		print(current_track)
-		var filename = current_track
-		if track_mapping.has(filename):
-			filename = track_mapping[filename]
-		
-		var data = load_track_data(filename)
+func load_track(tn):
+		track_curve.clear_points()
+		track_transform = Transform2D()
+	
+		var data = load_track_data(tn)
 		var words = data.split(' ')
-		
-		self.curve.clear_points()
 		
 		var current = Vector2()
 		var cursor = 0
+		var bounds = null
 		while cursor < len(words):
 			if words[cursor] == "M":
 				current = Vector2(float(words[cursor + 1]), float(words[cursor + 2]))
@@ -53,13 +53,49 @@ func _process(delta):
 				cursor += 2
 			else:
 				break
-			self.curve.add_point(current)
+			if bounds == null:
+				bounds = Rect2(current, Vector2())
+			else:
+				bounds = bounds.expand(current)
+			track_curve.add_point(current)
 			cursor += 1
+		
+		if bounds:
+			print(bounds)
+			var margin =  Vector2(15, 15)
+			var box = Vector2(1000, 800)
+			var ratio = (box - (2 * margin)) / bounds.size
+			var s = min(ratio.x, ratio.y)
+			var bs = (box - bounds.size * s) / 2.0
+			
+			track_transform = track_transform.scaled(Vector2(s, s))
+			track_transform = track_transform.translated(bounds.position - bs)
+
+func _process(delta):
+	if track_name != root.track_name:
+		track_name = root.track_name
+		
+		print(track_name)
+		
+		var filename = track_name
+		if track_mapping.has(filename):
+			filename = track_mapping[filename]
+		
+		load_track(filename)
 		queue_redraw()
 	
 func _draw():
-	var points = self.curve.get_baked_points()
-	var cursor = 0
-	while cursor < len(points) - 1:
-		draw_line(points[cursor], points[cursor + 1], Color.WHITE, 1.0, true)
-		cursor += 1
+	var points = track_curve.get_baked_points()
+	if len(points) > 1:
+		var cursor = 0
+		var current = points[cursor] * track_transform
+		while cursor < len(points) - 1:
+			var next = points[cursor + 1] * track_transform
+			draw_line(current, next, Color.WHITE, 1.0, true)
+			cursor += 1
+			current = next
+			
+		# finish line
+		var d = (points[0] - points[1]).normalized().rotated(PI / 2.0) * 10.0
+		var start_point = points[0] * track_transform
+		draw_line(start_point - d, start_point + d, Color.WHITE, 1.0, true)

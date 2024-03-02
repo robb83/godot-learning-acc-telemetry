@@ -62,6 +62,32 @@ typedef int AC_FLAG_TYPE;
 #define AC_CHECKERED_FLAG 5
 #define AC_PENALTY_FLAG 6
 
+typedef int ACC_TRACK_GRIP_STATUS;
+
+#define ACC_GREEN 0
+#define ACC_FAST 1
+#define ACC_OPTIMUM 2
+#define ACC_GREASY 3
+#define ACC_DAMP 4
+#define ACC_WET 5
+#define ACC_FLOODED 6
+
+typedef int ACC_RAIN_INTENSITY;
+
+#define ACC_NO_RAIN = 0
+#define ACC_DRIZZLE = 1
+#define ACC_LIGHT_RAIN = 2
+#define ACC_MEDIUM_RAIN = 3
+#define ACC_HEAVY_RAIN = 4
+#define ACC_THUNDERSTORM = 5
+
+typedef int ACC_WHEELS_TYPE;
+
+#define ACC_FRONTLEFT 0
+#define ACC_FRONTRIGHT 1
+#define ACC_REARLEFT 2
+#define ACC_REARRIGHT 3
+
 
 #pragma pack(push)
 #pragma pack(4)
@@ -154,7 +180,19 @@ struct SPageFilePhysics
     int absInAction = 0;
     float suspensionDamage[4];
     float tyreTemp[4];
-
+    float waterTemp;
+    float brakePressure[4];
+    int frontBrakeCompound;
+    int rearBrakeCompound;
+    float padLife[4];
+    float discLife[4];
+    int ignitionOn;
+    int starterEngineOn;
+    int isEngineRunning;
+    float kerbVibration;
+    float slipVibrations;
+    float gVibrations;
+    float absVibrations;
 };
 
 
@@ -216,6 +254,43 @@ struct SPageFileGraphic
     int DriverStintTotalTimeLeft = 0;
     int DriverStintTimeLeft = 0;
     int rainTyres = 0;
+    int sessionIndex;
+    float usedFuel;
+    wchar_t deltaLapTime[15];
+    int iDeltaLapTime;
+    wchar_t estimatedLapTime[15];
+    int iEstimatedLapTime;
+    int isDeltaPositive;
+    int iSplit;
+    int isValidLap;
+    float fuelEstimatedLaps;
+    wchar_t trackStatus[33];
+    int missingMandatoryPits;
+    float Clock;
+    int directionLightsLeft;
+    int directionLightsRight;
+    int GlobalYellow;
+    int GlobalYellow1;
+    int GlobalYellow2;
+    int GlobalYellow3;
+    int GlobalWhite;
+    int GlobalGreen;
+    int GlobalChequered;
+    int GlobalRed;
+    int mfdTyreSet;
+    float mfdFuelToAdd;
+    float mfdTyrePressureLF;
+    float mfdTyrePressureRF;
+    float mfdTyrePressureLR;
+    float mfdTyrePressureRR;
+    ACC_TRACK_GRIP_STATUS trackGripStatus;
+    ACC_RAIN_INTENSITY rainIntensity;
+    ACC_RAIN_INTENSITY rainIntensityIn10min;
+    ACC_RAIN_INTENSITY rainIntensityIn30min;
+    int currentTyreSet;
+    int strategyTyreSet;
+    int gapAhead;
+    int gapBehind;
 };
 
 
@@ -274,6 +349,8 @@ struct SPageFileStatic
     int PitWindowStart = 0;
     int PitWindowEnd = 0;
     int isOnline = 0;
+    wchar_t dryTyresName[33];
+    wchar_t wetTyresName[33];
 };
 
 

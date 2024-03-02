@@ -1,19 +1,22 @@
 extends Node2D
 
 @export var font : Font
+@onready var path2d = $"../Track"
+@onready var root = $"../.."
+
+func _process(delta):
+	queue_redraw()
 
 func _draw():
-	var path2d = $"../TrackPath2D"
-	var total_length = path2d.curve.get_baked_length()
-	var cars = $"..".cars
-	var offset = Vector2(300, 300)
-	var scale = Vector2(100, 500)
-	
-	if total_length == 0 or path2d.curve.point_count == 0:
+	var track_curve = path2d.track_curve
+	var track_transform = path2d.track_transform
+	var total_length = track_curve.get_baked_length()	
+	if total_length == 0 or track_curve.point_count == 0:
 		return
 		
+	var cars = root.cars
 	for c in cars.values():
-		var p1 = path2d.curve.sample_baked( total_length * c.spline, true)
+		var p1 = track_curve.sample_baked( total_length * c.spline, false) * track_transform
 		draw_arc(p1, 12, 0, 360, 20, Color.BLACK, 4, true)
 		draw_circle(p1, 12, c.color)
 		if font:
