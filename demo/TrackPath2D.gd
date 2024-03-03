@@ -67,9 +67,8 @@ func load_track(tn):
 			var ratio = (box - (2 * margin)) / bounds.size
 			var s = min(ratio.x, ratio.y)
 			var bs = (box - bounds.size * s) / 2.0
-			
 			track_transform = track_transform.scaled(Vector2(s, s))
-			track_transform = track_transform.translated(bounds.position - bs)
+			track_transform = track_transform.translated(bounds.position - bs / s)
 
 func _process(delta):
 	if track_name != root.track_name:
