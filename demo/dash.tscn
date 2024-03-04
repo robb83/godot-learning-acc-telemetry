@@ -1,0 +1,271 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbu46wkum0evl"]
+
+[ext_resource type="Script" path="res://Block1x1.gd" id="1_2t4d6"]
+[ext_resource type="Script" path="res://dash.gd" id="1_efssx"]
+[ext_resource type="Script" path="res://BlockT.gd" id="2_7mu04"]
+
+[node name="Dash" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_efssx")
+
+[node name="Block11" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 41.0
+offset_bottom = 41.0
+script = ExtResource("1_2t4d6")
+label = "ABS"
+value = "0"
+
+[node name="Block12" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 43.0
+offset_top = 1.0
+offset_right = 83.0
+offset_bottom = 41.0
+script = ExtResource("1_2t4d6")
+label = "TC"
+value = "0"
+
+[node name="Block13" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 85.0
+offset_top = 1.0
+offset_right = 167.0
+offset_bottom = 41.0
+script = ExtResource("1_2t4d6")
+label = "SPEED"
+value = "0"
+
+[node name="Block14" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 169.0
+offset_top = 1.0
+offset_right = 209.0
+offset_bottom = 41.0
+script = ExtResource("1_2t4d6")
+label = "MAP"
+value = "0"
+
+[node name="Block15" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 211.0
+offset_top = 1.0
+offset_right = 251.0
+offset_bottom = 41.0
+script = ExtResource("1_2t4d6")
+label = "PIT"
+value = "0"
+
+[node name="Block21" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 43.0
+offset_right = 41.0
+offset_bottom = 83.0
+script = ExtResource("1_2t4d6")
+label = "P FL"
+value = "0"
+
+[node name="Block22" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 43.0
+offset_top = 43.0
+offset_right = 83.0
+offset_bottom = 83.0
+script = ExtResource("1_2t4d6")
+label = "P FR"
+value = "0"
+
+[node name="Block23" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 85.0
+offset_top = 43.0
+offset_right = 167.0
+offset_bottom = 125.0
+script = ExtResource("1_2t4d6")
+label = "GEAR"
+value = "0"
+font_size_value = 48
+
+[node name="Block24" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 169.0
+offset_top = 43.0
+offset_right = 209.0
+offset_bottom = 83.0
+script = ExtResource("1_2t4d6")
+label = "T FL"
+value = "0"
+
+[node name="Block25" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 211.0
+offset_top = 43.0
+offset_right = 251.0
+offset_bottom = 83.0
+script = ExtResource("1_2t4d6")
+label = "T FR"
+value = "0"
+
+[node name="Block31" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 85.0
+offset_right = 41.0
+offset_bottom = 125.0
+script = ExtResource("1_2t4d6")
+label = "P RL"
+value = "0"
+
+[node name="Block32" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 43.0
+offset_top = 85.0
+offset_right = 83.0
+offset_bottom = 125.0
+script = ExtResource("1_2t4d6")
+label = "P RR"
+value = "0"
+
+[node name="Block34" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 169.0
+offset_top = 85.0
+offset_right = 209.0
+offset_bottom = 125.0
+script = ExtResource("1_2t4d6")
+label = "T RL"
+value = "0"
+
+[node name="Block35" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 211.0
+offset_top = 85.0
+offset_right = 251.0
+offset_bottom = 125.0
+script = ExtResource("1_2t4d6")
+label = "T RR"
+value = "0"
+
+[node name="Block41" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 127.0
+offset_right = 41.0
+offset_bottom = 167.0
+script = ExtResource("1_2t4d6")
+label = "FUEL"
+value = "0"
+
+[node name="Block42" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 43.0
+offset_top = 127.0
+offset_right = 83.0
+offset_bottom = 167.0
+script = ExtResource("1_2t4d6")
+label = "F/L"
+value = "0"
+
+[node name="Block43" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 85.0
+offset_top = 127.0
+offset_right = 167.0
+offset_bottom = 167.0
+script = ExtResource("1_2t4d6")
+label = "REV"
+value = "0"
+
+[node name="Block44" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 169.0
+offset_top = 127.0
+offset_right = 209.0
+offset_bottom = 167.0
+script = ExtResource("1_2t4d6")
+label = "LAP"
+value = "0"
+
+[node name="Block51" type="Control" parent="."]
+clip_contents = true
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 169.0
+offset_right = 83.0
+offset_bottom = 209.0
+script = ExtResource("1_2t4d6")
+label = "BEST"
+value = "0"
+
+[node name="Block52" type="Control" parent="."]
+clip_contents = true
+anchors_preset = 0
+offset_left = 85.0
+offset_top = 169.0
+offset_right = 167.0
+offset_bottom = 209.0
+script = ExtResource("1_2t4d6")
+label = "LAP TIME"
+value = "0"
+
+[node name="Block53" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 169.0
+offset_top = 169.0
+offset_right = 251.0
+offset_bottom = 209.0
+script = ExtResource("1_2t4d6")
+label = "DIFF"
+value = "0"
+
+[node name="BlockT1" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 211.0
+offset_right = 41.0
+offset_bottom = 294.0
+script = ExtResource("2_7mu04")
+label = "THR"
+value = 0.5
+value_color = Color(0, 0.721569, 0.262745, 1)
+
+[node name="BlockT2" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 43.0
+offset_top = 211.0
+offset_right = 83.0
+offset_bottom = 294.0
+script = ExtResource("2_7mu04")
+label = "BRK"
+value = 0.5
+value_color = Color(0.937255, 0, 0, 1)
+
+[node name="BlockT3" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 85.0
+offset_top = 211.0
+offset_right = 125.0
+offset_bottom = 294.0
+script = ExtResource("2_7mu04")
+label = "CLT"
+value = 0.5
+value_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[node name="BlockT4" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 127.0
+offset_top = 211.0
+offset_right = 167.0
+offset_bottom = 294.0
+script = ExtResource("2_7mu04")
+label = "FF"
+value = 0.5
+value_color = Color(0.392157, 0.392157, 0.392157, 1)

@@ -245,7 +245,7 @@ struct SPageFileGraphic
     int TCCut = 0;
     int EngineMap = 0;
     int ABS = 0;
-    int fuelXLap = 0;
+    float fuelXLap = 0;
     int rainLights = 0;
     int flashingLights = 0;
     int lightsStage = 0;

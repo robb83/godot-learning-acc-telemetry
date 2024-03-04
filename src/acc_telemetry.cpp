@@ -92,6 +92,16 @@ Dictionary AccTelemetry::poll_physics()
 {
     SPageFilePhysics* pf = (SPageFilePhysics*)m_physics.mapFileBuffer;
 
+	PackedFloat32Array pressures = PackedFloat32Array();
+	PackedFloat32Array temps = PackedFloat32Array();
+
+	for (int i = 0; i < 4; ++i)
+	{
+		temps.push_back(pf->wheelsPressure[i]);
+		pressures.push_back(pf->tyreCoreTemperature[i]);
+	}
+	
+
     Dictionary result;
     result["packetId"] = pf->packetId;
     result["brake"] = pf->brake;
@@ -103,6 +113,10 @@ Dictionary AccTelemetry::poll_physics()
     result["steerAngle"] = pf->steerAngle;
     result["clutch"] = pf->clutch;
 	result["isAIControlled"] = pf->isAIControlled;
+	result["wheelsPressure"] = pressures;
+	result["tyreCoreTemperature"] = temps;
+	result["tc"] = pf->tc;
+	result["abs"] = pf->abs;
 
     return result;
 }
@@ -145,6 +159,17 @@ Dictionary AccTelemetry::poll_graphics()
 	result["fuelEstimatedLaps"] = pf->fuelEstimatedLaps;
 	result["carCoordinates"] = car_coordinates;
 	result["carID"] = car_id;
+	result["currentTime"] = pf->currentTime;
+	result["lastTime"] = pf->lastTime;
+	result["bestTime"] = pf->bestTime;
+	result["completedLaps"] = pf->completedLaps;
+	result["deltaLapTime"] = pf->deltaLapTime;
+
+	result["currentTimeMS"] = pf->iCurrentTime;
+	result["lastTimeMS"] = pf->iLastTime;
+	result["bestTimeMS"] = pf->iBestTime;
+	result["deltaLapTimeMS"] = pf->iDeltaLapTime;
+	result["mandatoryPitDone"] = pf->mandatoryPitDone;
 
     return result;
 }
