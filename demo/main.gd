@@ -7,6 +7,11 @@ var cars = {}
 var track_id = 0
 var track_name = ""
 var gears = ["R", "N", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+var status = ["OFF", "REPLAY", "LIVE", "PAUSE"]
+var session_types = [ "UNKNOWN", "PRACTICE", "QUALIFY", "RACE", "HOTLAP", "TIME_ATTACK", "DRIFT", "DRAG", "HOTSTINT", "HOTLAPSUPERPOLE" ]
+var flags = [ "", "BLUE_FLAG", "YELLOW_FLAG", "BLACK_FLAG", "WHITE_FLAG", "CHECKERED_FLAG", "PENALTY_FLAG" ]
+var grip_status = [ "GREEN", "FAST", "OPTIMUM", "GREASY", "DAMP", "WET", "FLOODED" ]
+var rain_intenzity = [ "NO_RAIN", "DRIZZLE", "LIGHT_RAIN", "MEDIUM_RAIN", "HEAVY_RAIN", "THUNDERSTORM" ]
 
 @onready var dashboard = $Control/Dash
 
