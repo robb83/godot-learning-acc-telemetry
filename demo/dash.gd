@@ -1,6 +1,10 @@
 extends Control
 
-func update(abs, tc, speed, map, pit, gear, pressures, temps, fuel, fpl, rev, lap, time_best, time_current, time_diff, gas, brk, clutch):
+var border_default = Color("#cccccc")
+var border_red = Color("#FF0000")
+var border_green = Color("#0000FF")
+
+func update(abs, tc, speed, map, pit, gear, pressures, temps, fuel, fpl, rev, lap, time_best, time_current, time_diff, time_last, gas, brk, clutch, is_delta_positive, is_valid_lap):
 	$Block11.set_value(str(abs))
 	$Block12.set_value(str(tc))
 	$Block13.set_value("%3.1f" % speed)
@@ -19,9 +23,12 @@ func update(abs, tc, speed, map, pit, gear, pressures, temps, fuel, fpl, rev, la
 	$Block42.set_value("%3.1f" % fpl)
 	$Block43.set_value(str(rev))
 	$Block44.set_value(str(lap))
-	$Block51.set_value(str(time_best))
+	$Block51.set_value(str(time_last))
+	$Block52.border_color = border_default if is_valid_lap == 0 else border_red
 	$Block52.set_value(str(time_current))
+	$Block53.border_color = border_default if is_delta_positive == 0 else border_green
 	$Block53.set_value(str(time_diff))
+	$Block54.set_value(str(time_best))
 	$BlockT1.set_value(gas)
 	$BlockT2.set_value(brk)
 	$BlockT3.set_value(clutch)

@@ -7,6 +7,7 @@ class_name BlockT extends Control
 @export var font_size_label : int = 10
 @export var font_size_value : int = 16
 @export var value_color : Color = Color.RED
+@export var border_color : Color = Color("#cccccc")
 	
 func set_label(text):
 	label = text
@@ -39,5 +40,5 @@ func _draw():
 	points.push_back(Vector2(0.5, size.y - 0.5))
 	points.push_back(Vector2(0.5, 0.5))
 	points.push_back(Vector2(label_block + 0.5, 0.5))
-	draw_polyline(points, Color("#cccccc"), 1, false)
+	draw_polyline(points, border_color, 1, false)
 	draw_string(font, Vector2(label_block + padding, 9), label, HORIZONTAL_ALIGNMENT_CENTER, -1, font_size_label)	

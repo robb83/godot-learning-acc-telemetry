@@ -26,6 +26,9 @@ var colors = [
 	Color("#FFE502"), Color("#620E00"), Color("#008F9C"), Color("#98FF52"), Color("#7544B1"), Color("#B500FF"), Color("#00FF78"), Color("#FF6E41"), 
 	Color("#005F39"), Color("#6B6882"), Color("#5FAD4E"), Color("#A75740"), Color("#A5FFD2"), Color("#FFB167"), Color("#009BFF"), Color("#E85EBE")
 ]
+
+func _ready():
+	pass
 	
 func _process(delta):
 	if socket != null and socket.is_packet_available():
@@ -66,16 +69,21 @@ func _process(delta):
 					"color": colors[wrap(car_index, 0, len(colors) - 1)],
 				}
 				$TrackContainer/Cars.queue_redraw()
+		
 		if telemetry:
 			var dp = telemetry.poll_physics()
 			var dg = telemetry.poll_graphics()
+			var ds = telemetry.poll_static()
 			
-			# abs, tc, speed, map, pit, gear, pressures, temps, fuel, fpl, rev, lap, time_best, time_current, time_diff, gas, brk, clutch
+			#save_to_file(ds, dg, dp)
+			
+			# abs, tc, speed, map, pit, gear, pressures, temps, fuel, fpl, rev, lap, time_best, time_current, time_diff, time_current, gas, brk, clutch
 			dashboard.update(
 				(dg.ABS), (dg.TC), (dp.speedKmh), (dg.EngineMap + 1), 0,
 				gears[dp.gear], dp.wheelsPressure, dp.tyreCoreTemperature, 
-				(dp.fuel), dg.fuelXLap, (dp.rpms), (dg.completedLaps), dg.bestTime, dg.currentTime, dg.deltaLapTime, dp.gas, dp.brake, 1.0 - dp.clutch)
-
+				(dp.fuel), dg.fuelXLap, (dp.rpms), (dg.completedLaps), dg.bestTime, dg.currentTime, dg.deltaLapTime, dg.lastTime, dp.gas, dp.brake, 1.0 - dp.clutch)
+				
+	
 func _on_connect_button_pressed():
 	
 	var ip = $Control/MarginContainer/VBoxContainer/GridContainer/TextEditIP.text

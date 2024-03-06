@@ -183,6 +183,7 @@ Dictionary AccTelemetry::poll_graphics()
 	result["numberOfLaps"] = pf->numberOfLaps;
 	result["tyreCompound"] = pf->tyreCompound;
 	result["normalizedCarPosition"] = pf->normalizedCarPosition;
+	result["activeCars"] = pf->activeCars;
 	result["carCoordinates"] = car_coordinates;
 	result["carID"] = car_id;
 	result["playerCarID"] = pf->playerCarID;
