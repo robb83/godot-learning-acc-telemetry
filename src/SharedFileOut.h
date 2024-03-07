@@ -94,7 +94,6 @@ typedef int ACC_WHEELS_TYPE;
 
 struct SPageFilePhysics
 {
-
     int packetId = 0;
     float gas = 0;
     float brake = 0;
@@ -174,7 +173,6 @@ struct SPageFilePhysics
     float fy[4];
     float slipRatio[4];
     float slipAngle[4];
-
 
     int tcinAction = 0;
     int absInAction = 0;

@@ -149,9 +149,6 @@ Dictionary AccTelemetry::poll_graphics()
 
 	int cars = std::max(std::min(pf->activeCars, 60), 0);
 
-	car_coordinates.resize(cars);
-	car_id.resize(cars);
-
 	for (int i = 0; i < cars; ++i) {
 		car_coordinates.push_back(Vector3(pf->carCoordinates[i][0], pf->carCoordinates[i][1], pf->carCoordinates[i][2]));
 		car_id.push_back(pf->carID[i]);
