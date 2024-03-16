@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://q48j6sf0bpkm"]
 
-[ext_resource type="Script" path="res://track_generator.gd" id="1_2rqt6"]
+[ext_resource type="Script" path="res://track_generator/track_generator.gd" id="1_36r3j"]
 
 [sub_resource type="Curve2D" id="Curve2D_h1qkl"]
 
 [node name="Dots" type="Node2D"]
-script = ExtResource("1_2rqt6")
+script = ExtResource("1_36r3j")
 
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource("Curve2D_h1qkl")

@@ -61,8 +61,8 @@ func load_track(tn):
 			cursor += 1
 		
 		if bounds:
-			var margin =  Vector2(15, 15)
-			var box = Vector2(1000, 800)
+			var margin = Vector2(15, 15)
+			var box = Vector2(700, 800)
 			var ratio = (box - (2 * margin)) / bounds.size
 			var s = min(ratio.x, ratio.y)
 			var bs = (box - bounds.size * s) / 2.0

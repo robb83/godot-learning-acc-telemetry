@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvrrlp5d4kl3n"]
+
+[ext_resource type="Script" path="res://dashboard/main.gd" id="1_714fc"]
+[ext_resource type="PackedScene" uid="uid://dbu46wkum0evl" path="res://dashboard/dash.tscn" id="2_xh8sj"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_714fc")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1280.0
+offset_top = 5.0
+offset_right = 1320.0
+offset_bottom = 45.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 0
+offset_right = 210.0
+offset_bottom = 95.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="Control/MarginContainer"]
+custom_minimum_size = Vector2(210, 125)
+layout_mode = 2
+
+[node name="ConnectButton" type="Button" parent="Control/MarginContainer"]
+layout_mode = 2
+text = "Connect"
+
+[node name="Dash" parent="Control" instance=ExtResource("2_xh8sj")]
+layout_mode = 1
+offset_left = -704.0
+offset_top = 286.0
+offset_right = -704.0
+offset_bottom = 286.0
+
+[connection signal="pressed" from="Control/MarginContainer/ConnectButton" to="." method="_on_connect_button_pressed"]

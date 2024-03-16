@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://dbu46wkum0evl"]
 
-[ext_resource type="Script" path="res://Block1x1.gd" id="1_2t4d6"]
-[ext_resource type="Script" path="res://dash.gd" id="1_efssx"]
-[ext_resource type="Script" path="res://BlockT.gd" id="2_7mu04"]
+[ext_resource type="Script" path="res://dashboard/dash.gd" id="1_8b6da"]
+[ext_resource type="Script" path="res://dashboard/Block1x1.gd" id="2_ueghn"]
+[ext_resource type="Script" path="res://dashboard/BlockT.gd" id="3_oxqto"]
 
 [node name="Dash" type="Control"]
 layout_mode = 3
@@ -11,7 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_efssx")
+script = ExtResource("1_8b6da")
 
 [node name="Block11" type="Control" parent="."]
 anchors_preset = 0
@@ -19,7 +19,7 @@ offset_left = 1.0
 offset_top = 1.0
 offset_right = 49.0
 offset_bottom = 33.0
-script = ExtResource("1_2t4d6")
+script = ExtResource("2_ueghn")
 label = "ABS"
 value = "0"
 
@@ -29,7 +29,7 @@ offset_left = 51.0
 offset_top = 1.0
 offset_right = 99.0
 offset_bottom = 33.0
-script = ExtResource("1_2t4d6")
+script = ExtResource("2_ueghn")
 label = "TC"
 value = "0"
 
@@ -39,7 +39,7 @@ offset_left = 101.0
 offset_top = 1.0
 offset_right = 199.0
 offset_bottom = 33.0
-script = ExtResource("1_2t4d6")
+script = ExtResource("2_ueghn")
 label = "SPEED"
 value = "0"
 
@@ -49,7 +49,7 @@ offset_left = 201.0
 offset_top = 1.0
 offset_right = 249.0
 offset_bottom = 33.0
-script = ExtResource("1_2t4d6")
+script = ExtResource("2_ueghn")
 label = "MAP"
 value = "0"
 
@@ -59,7 +59,7 @@ offset_left = 251.0
 offset_top = 1.0
 offset_right = 299.0
 offset_bottom = 33.0
-script = ExtResource("1_2t4d6")
+script = ExtResource("2_ueghn")
 label = "PIT"
 value = "0"
 
@@ -69,7 +69,7 @@ offset_left = 1.0
 offset_top = 35.0
 offset_right = 49.0
 offset_bottom = 67.0
-script = ExtResource("1_2t4d6")
+script = ExtResource("2_ueghn")
 label = "P FL"
 value = "0"
 
@@ -79,7 +79,7 @@ offset_left = 51.0
 offset_top = 35.0
 offset_right = 99.0
 offset_bottom = 67.0
-script = ExtResource("1_2t4d6")
+script = ExtResource("2_ueghn")
 label = "P FR"
 value = "0"
 
@@ -89,7 +89,7 @@ offset_left = 101.0
 offset_top = 35.0
 offset_right = 199.0
 offset_bottom = 101.0
-script = ExtResource("1_2t4d6")
+script = ExtResource("2_ueghn")
 label = "GEAR"
 value = "0"
 font_size_value = 48
@@ -100,7 +100,7 @@ offset_left = 201.0
 offset_top = 35.0
 offset_right = 249.0
 offset_bottom = 67.0
-script = ExtResource("1_2t4d6")
+script = ExtResource("2_ueghn")
 label = "T FL"
 value = "0"
 
@@ -110,7 +110,7 @@ offset_left = 251.0
 offset_top = 35.0
 offset_right = 299.0
 offset_bottom = 67.0
-script = ExtResource("1_2t4d6")
+script = ExtResource("2_ueghn")
 label = "T FR"
 value = "0"
 
@@ -120,7 +120,7 @@ offset_left = 1.0
 offset_top = 69.0
 offset_right = 49.0
 offset_bottom = 101.0
-script = ExtResource("1_2t4d6")
+script = ExtResource("2_ueghn")
 label = "P RL"
 value = "0"
 
@@ -130,7 +130,7 @@ offset_left = 51.0
 offset_top = 69.0
 offset_right = 99.0
 offset_bottom = 101.0
-script = ExtResource("1_2t4d6")
+script = ExtResource("2_ueghn")
 label = "P RR"
 value = "0"
 
@@ -140,7 +140,7 @@ offset_left = 201.0
 offset_top = 69.0
 offset_right = 249.0
 offset_bottom = 101.0
-script = ExtResource("1_2t4d6")
+script = ExtResource("2_ueghn")
 label = "T RL"
 value = "0"
 
@@ -150,7 +150,7 @@ offset_left = 251.0
 offset_top = 69.0
 offset_right = 299.0
 offset_bottom = 101.0
-script = ExtResource("1_2t4d6")
+script = ExtResource("2_ueghn")
 label = "T RR"
 value = "0"
 
@@ -160,7 +160,7 @@ offset_left = 1.0
 offset_top = 103.0
 offset_right = 49.0
 offset_bottom = 135.0
-script = ExtResource("1_2t4d6")
+script = ExtResource("2_ueghn")
 label = "FUEL"
 value = "0"
 
@@ -170,7 +170,7 @@ offset_left = 51.0
 offset_top = 103.0
 offset_right = 99.0
 offset_bottom = 135.0
-script = ExtResource("1_2t4d6")
+script = ExtResource("2_ueghn")
 label = "F/L"
 value = "0"
 
@@ -180,7 +180,7 @@ offset_left = 101.0
 offset_top = 103.0
 offset_right = 199.0
 offset_bottom = 135.0
-script = ExtResource("1_2t4d6")
+script = ExtResource("2_ueghn")
 label = "REV"
 value = "0"
 
@@ -190,7 +190,7 @@ offset_left = 201.0
 offset_top = 103.0
 offset_right = 249.0
 offset_bottom = 135.0
-script = ExtResource("1_2t4d6")
+script = ExtResource("2_ueghn")
 label = "LAP"
 value = "0"
 
@@ -201,7 +201,7 @@ offset_left = 1.0
 offset_top = 137.0
 offset_right = 99.0
 offset_bottom = 169.0
-script = ExtResource("1_2t4d6")
+script = ExtResource("2_ueghn")
 label = "LAST"
 value = "0"
 
@@ -212,7 +212,7 @@ offset_left = 101.0
 offset_top = 137.0
 offset_right = 199.0
 offset_bottom = 169.0
-script = ExtResource("1_2t4d6")
+script = ExtResource("2_ueghn")
 label = "CURRENT"
 value = "0"
 
@@ -222,7 +222,7 @@ offset_left = 201.0
 offset_top = 137.0
 offset_right = 299.0
 offset_bottom = 169.0
-script = ExtResource("1_2t4d6")
+script = ExtResource("2_ueghn")
 label = "DELTA"
 value = "0"
 
@@ -232,7 +232,7 @@ offset_left = 301.0
 offset_top = 137.0
 offset_right = 399.0
 offset_bottom = 169.0
-script = ExtResource("1_2t4d6")
+script = ExtResource("2_ueghn")
 label = "BEST"
 value = "0"
 
@@ -242,7 +242,7 @@ offset_left = 1.0
 offset_top = 171.0
 offset_right = 31.0
 offset_bottom = 254.0
-script = ExtResource("2_7mu04")
+script = ExtResource("3_oxqto")
 label = "THR"
 value = 0.5
 value_color = Color(0, 0.721569, 0.262745, 1)
@@ -253,7 +253,7 @@ offset_left = 35.0
 offset_top = 171.0
 offset_right = 65.0
 offset_bottom = 254.0
-script = ExtResource("2_7mu04")
+script = ExtResource("3_oxqto")
 label = "BRK"
 value = 0.5
 value_color = Color(0.937255, 0, 0, 1)
@@ -264,7 +264,7 @@ offset_left = 69.0
 offset_top = 171.0
 offset_right = 99.0
 offset_bottom = 254.0
-script = ExtResource("2_7mu04")
+script = ExtResource("3_oxqto")
 label = "CLT"
 value = 0.5
 value_color = Color(0.392157, 0.392157, 0.392157, 1)
@@ -275,7 +275,7 @@ offset_left = 101.0
 offset_top = 171.0
 offset_right = 133.0
 offset_bottom = 254.0
-script = ExtResource("2_7mu04")
+script = ExtResource("3_oxqto")
 label = "FF"
 value = 0.5
 value_color = Color(0.392157, 0.392157, 0.392157, 1)

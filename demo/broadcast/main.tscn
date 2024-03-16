@@ -1,0 +1,79 @@
+[gd_scene load_steps=6 format=3 uid="uid://bldxb17vhb6c5"]
+
+[ext_resource type="Script" path="res://broadcast/main.gd" id="1_gg5lo"]
+[ext_resource type="Script" path="res://broadcast/Positions.gd" id="2_y4j6t"]
+[ext_resource type="Script" path="res://broadcast/Cars.gd" id="3_bo8g1"]
+[ext_resource type="Script" path="res://broadcast/Track.gd" id="3_u2vkc"]
+
+[sub_resource type="SystemFont" id="SystemFont_1n1a0"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_gg5lo")
+
+[node name="Positions" type="Node2D" parent="."]
+script = ExtResource("2_y4j6t")
+
+[node name="TrackContainer" type="Node2D" parent="."]
+position = Vector2(300, 0)
+
+[node name="Track" type="Node2D" parent="TrackContainer"]
+script = ExtResource("3_u2vkc")
+
+[node name="Cars" type="Node2D" parent="TrackContainer"]
+script = ExtResource("3_bo8g1")
+font = SubResource("SystemFont_1n1a0")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1280.0
+offset_top = 5.0
+offset_right = 1320.0
+offset_bottom = 45.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 0
+offset_right = 210.0
+offset_bottom = 95.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="Control/MarginContainer"]
+custom_minimum_size = Vector2(210, 125)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="GridContainer" type="GridContainer" parent="Control/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+columns = 2
+
+[node name="LabelIP" type="Label" parent="Control/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "IP:"
+
+[node name="TextEditIP" type="TextEdit" parent="Control/MarginContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(150, 36)
+layout_mode = 2
+text = "127.0.0.1"
+
+[node name="LabelPort" type="Label" parent="Control/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Port:"
+
+[node name="TextEditPort" type="TextEdit" parent="Control/MarginContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(150, 36)
+layout_mode = 2
+text = "9000"
+
+[node name="ConnectButton" type="Button" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Connect"
+
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/ConnectButton" to="." method="_on_connect_button_pressed"]
