@@ -14,13 +14,13 @@ func _draw():
 	if total_length == 0 or track_curve.point_count == 0:
 		return
 		
-	var cars = root.cars
+	var cars = root.race.cars
 	for c in cars.values():
 		var p1 = track_curve.sample_baked( total_length * c.spline, false) * track_transform
 		draw_arc(p1, 12, 0, 360, 20, Color.BLACK, 4, true)
 		draw_circle(p1, 12, c.color)
 		if font:
-			var text = str(c.index)
+			var text = str(c.race_number)
 			var size = font.get_string_size(text)
 			var str_pos = p1 - (Vector2(size.x / 2.0, size.y / -4.0))
-			draw_string(font, str_pos, str(c.index))
+			draw_string(font, str_pos, text)

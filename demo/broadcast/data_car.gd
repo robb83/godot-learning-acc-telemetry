@@ -1,12 +1,15 @@
-class_name CarEntry extends Object
+class_name CarEntry extends RefCounted
 
+# for animation
 var pos_target : Vector2
 var pos_current : Vector2
 var tween : Tween
 var label1 : String
 var label2 : String
 var label3 : String
+var label4 : String
 
+# received data
 var index = 0
 var driver_index = 0
 var driver_count = 0

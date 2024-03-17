@@ -70,8 +70,8 @@ func load_track(tn):
 			track_transform = track_transform.translated(bounds.position - bs / s)
 
 func _process(delta):
-	if track_name != root.track_name:
-		track_name = root.track_name
+	if track_name != root.race.track_name:
+		track_name = root.race.track_name
 		
 		print(track_name)
 		

@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://bldxb17vhb6c5"]
 
 [ext_resource type="Script" path="res://broadcast/main.gd" id="1_gg5lo"]
-[ext_resource type="Script" path="res://broadcast/Positions.gd" id="2_y4j6t"]
-[ext_resource type="Script" path="res://broadcast/Cars.gd" id="3_bo8g1"]
-[ext_resource type="Script" path="res://broadcast/Track.gd" id="3_u2vkc"]
+[ext_resource type="Script" path="res://broadcast/race_positions.gd" id="2_20wwb"]
+[ext_resource type="Script" path="res://broadcast/track_circuit.gd" id="3_ido8r"]
+[ext_resource type="Script" path="res://broadcast/track_cars.gd" id="4_yx271"]
 
 [sub_resource type="SystemFont" id="SystemFont_1n1a0"]
 
@@ -11,30 +11,30 @@
 script = ExtResource("1_gg5lo")
 
 [node name="Positions" type="Node2D" parent="."]
-script = ExtResource("2_y4j6t")
+script = ExtResource("2_20wwb")
 
 [node name="TrackContainer" type="Node2D" parent="."]
-position = Vector2(300, 0)
+position = Vector2(320, 0)
 
 [node name="Track" type="Node2D" parent="TrackContainer"]
-script = ExtResource("3_u2vkc")
+script = ExtResource("3_ido8r")
 
 [node name="Cars" type="Node2D" parent="TrackContainer"]
-script = ExtResource("3_bo8g1")
+script = ExtResource("4_yx271")
 font = SubResource("SystemFont_1n1a0")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 1280.0
+offset_left = 1240.0
 offset_top = 5.0
-offset_right = 1320.0
+offset_right = 1280.0
 offset_bottom = 45.0
 
 [node name="MarginContainer" type="MarginContainer" parent="Control"]
 layout_mode = 0
-offset_right = 210.0
-offset_bottom = 95.0
+offset_right = 263.0
+offset_bottom = 240.0
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
@@ -72,8 +72,31 @@ custom_minimum_size = Vector2(150, 36)
 layout_mode = 2
 text = "9000"
 
-[node name="ConnectButton" type="Button" parent="Control/MarginContainer/VBoxContainer"]
+[node name="LabelPassword" type="Label" parent="Control/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Password:"
+
+[node name="TextEditPassword" type="TextEdit" parent="Control/MarginContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(150, 36)
+layout_mode = 2
+text = "password"
+
+[node name="ButtonConnect" type="Button" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Connect"
 
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/ConnectButton" to="." method="_on_connect_button_pressed"]
+[node name="ButtonOpen" type="Button" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Open"
+
+[node name="FileDialogOpenRecorded" type="FileDialog" parent="Control"]
+title = "Open a File"
+size = Vector2i(600, 500)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.bin;Recorded")
+
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/ButtonConnect" to="." method="_on_connect_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/ButtonOpen" to="." method="_on_button_open_pressed"]
+[connection signal="file_selected" from="Control/FileDialogOpenRecorded" to="." method="_on_file_dialog_open_recorded_file_selected"]
